@@ -1,0 +1,462 @@
+body {
+	margin:0; 
+	padding:0; 
+	text-align: center; 
+	background: #000000; /*383838;*/ 
+	color: #ff00ff;
+	font-weight: bold;
+	font-size: 100%;
+	text-shadow: 1px 1px #000000;
+	font-family: Arial, sans-serif;
+}
+.ui-mobile, .ui-mobile .ui-page {
+    min-height: 0;
+	background: #000000; /*383838;*/ 
+	color: #ff00ff;
+	font-weight: bold;
+	font-size: 100%;
+	text-shadow: 1px 1px #000000;
+}
+#game, #hsc_local, #hsc_internet {
+	background-image:url('../images/bg_std.jpg');
+}
+.popup {
+    position: fixed;
+    top: 10%;
+    left: 5%;
+    right: 5%;
+    bottom: 10%;
+}
+.text-title {
+	font-family: Times, serif;
+	color: #ff00ff;
+	font-size: 40pt;
+}
+.text-subtitle {
+	font-size: 10pt; 
+	color: #FFFFFF;
+}
+.text-title-2 {
+	font-family: Times, serif;
+	color: #ff00ff;
+	font-size: 40pt;
+}
+.highscore-title {
+	font-size: 12pt; 
+	color: #FFFF00;
+	margin-bottom: 5%;
+}
+.button-go {
+	margin: auto;
+	width: 100px; 
+	height: 36px; 
+}
+table { 
+	margin: auto; 
+	border: none;
+}
+table.highscore {
+	width: 90%; 
+	color: #FFFFFF;
+	background: none;
+	text-shadow: 1px 1px #000000;
+}
+table.highscore th {
+	color: #ff00ff;
+}
+tr { 
+	padding: 0; 
+	margin: 0;
+}
+
+td {
+	border:none; 
+	background: #000;
+	padding:0; 
+	margin:0;
+}
+.hlg {
+	color: #FFFF00;
+}
+table.highscore td {
+	background: none;
+}
+.sprite1 {
+	background-image:url('../images/bg001_la_grosse_cloche_480.jpg');
+	background-repeat:no-repeat;
+}
+
+.sprite2 {
+	background-image:url('../images/bg002_eglise_saint_michel_480.jpg');
+	background-repeat:no-repeat;
+}
+
+.sprite3 {
+	background-image:url('../images/bg003_tour_pey_berland_480.jpg');
+	background-repeat:no-repeat;
+}
+
+.sprite4 {
+	background-image:url('../images/bg004_pont_de_pierre_480.jpg');
+	background-repeat:no-repeat;
+}
+
+.sprite5 {
+	background-image:url('../images/bg005_porte_d_aquitaine_480.jpg');
+	background-repeat:no-repeat;
+}
+
+.sprite6 {
+	background-image:url('../images/bg006_colonne_des_girondins_480.jpg');
+	background-repeat:no-repeat;
+}
+
+.sprite7 {
+	background-image:url('../images/bg007_tramway_quinconces_480.jpg');
+	background-repeat:no-repeat;
+}
+
+.sprite8 {
+	background-image:url('../images/bg008_porte_cailhau_480.jpg');
+	background-repeat:no-repeat;
+}
+
+.sprite9 {
+	background-image:url('../images/bg009_saint_louis_480.jpg');
+	background-repeat:no-repeat;
+}
+
+.sprite10 {
+	background-image:url('../images/bg010_miroir_d_eau_480.jpg');
+	background-repeat:no-repeat;
+}
+
+.icons {
+	background-image:url('../images/icons-36-white.png');
+	background-repeat:no-repeat;
+}
+.icons-black {
+	background-image:url('../images/icons-36-black.png');
+	background-repeat:no-repeat;
+}
+.icons-size {
+	width: 36px;
+	height: 36px;
+	margin: auto;
+}
+.param {
+	background-position: -576px;
+}
+.quit {
+	background-position: -144px;
+} 
+.help {
+	background-position: -1080px;
+} 
+.new {
+	background-position: -936px;
+} 
+.right {
+	background-position: -216px;
+} 
+.left {
+	background-position: -288px;
+} 
+.menu {
+	height: 80px;
+	font-family: arial;
+	font-size: 10pt;
+	font-weight: normal;
+	color: #FFF;
+}
+.help-content {
+	text-align: left; 
+	padding-top: 60px;
+}
+.help-title {
+	position: fixed; 
+	width: 100%; 
+	top: 0; 
+	padding: 0.5em; 
+	border-bottom: 1px #282828 solid; 
+	background: #000;	
+	color: #ff00ff; 
+	font-weight: bold; 
+	font-size: 100%; 
+	text-shadow: 1px 1px #000000;
+}
+.help-subtitle {
+	font-size: 8pt; 
+	color: #fff;
+}
+.help-text {
+	font-weight: normal; 
+	font-size: 10pt; 
+	text-shadow: none; 
+	text-align: justify; 
+	padding: 0.5em;
+}
+/* CSS mode DESKTOP */
+@media only screen and (min-width: 768px) {
+	.sprite-size {
+		background-size: 768px 1024px;
+	}
+	.d3 {
+		width:153px;
+		height:128px;
+	}
+	.d2 {
+		width:191px;
+		height:170px;
+	}
+	.d1 {
+		width:255px;
+		height:256px;
+	}
+	.text-title {
+		font-size: 80pt;
+	}
+	.text-subtitle {
+		font-size: 20pt; 
+		color: #FFFFFF;
+	}
+	.text-title-2 {
+		font-size: 80pt;
+	}
+	#hsc_loc, #hsc_int {
+		font-size: 150%; 
+	}
+	.highscore-title {
+		font-size: 20pt; 
+	}
+	.help-content {
+		padding-top: 100px;	
+	}
+	.help-title {
+		font-size: 20pt; 
+	}
+	.help-subtitle {
+		font-size: 15pt; 
+	}
+	.help-text {
+		font-size: 150%; 
+	}
+}
+				
+@media only screen and (max-width: 767px) {
+	.sprite-size {
+		background-size: 600px 800px;
+	}
+	.d3 {
+		width:120px;
+		height:100px;
+	}
+	.d2 {
+		width:150px;
+		height:133px;
+	}
+	.d1 {
+		width:200px;
+		height:200px;
+	}
+	.text-title {
+		font-size: 60pt;
+	}
+	.text-subtitle {
+		font-size: 15pt; 
+		color: #FFFFFF;
+	}
+	.help-text {
+		font-size: 105%; 
+	}
+	.text-title-2 {
+		font-size: 60pt;
+	}
+	#hsc_loc, #hsc_int {
+		font-size: 105%; 
+	}
+	.highscore-title {
+		font-size: 15pt; 
+	}
+}
+
+@media only screen and (max-width: 599px) {
+	.sprite-size {
+		background-size: 480px 640px;
+	}
+	.d3 {
+		width:96px;
+		height:80px;
+	}
+	.d2 {
+		width:120px;
+		height:106px;
+	}
+	.d1 {
+		width:160px;
+		height:160px;
+	}
+	.text-title {
+		font-size: 50pt;
+	}
+	.text-subtitle {
+		font-size: 12pt; 
+		color: #FFFFFF;
+	}
+	.help-text {
+		font-size: 100%; 
+	}
+	.text-title-2 {
+		font-size: 50pt;
+	}
+	#hsc_loc, #hsc_int {
+		font-size: 100%; 
+	}
+	.highscore-title {
+		font-size: 12pt; 
+	}
+}
+
+@media only screen and (max-width: 479px) {
+	.sprite-size {
+		background-size: 320px 480px;
+	}
+	.d3 {
+		width: 64px; 
+		height: 60px; 
+	}
+	.d2 {
+		width: 80px; 
+		height: 80px; 
+	}
+	.d1 {
+		width: 106px; 
+		height: 120px; 
+	}
+	.help-text {
+		font-size: 90%; 
+	}
+	.menu {
+		height: 64px;
+		font-family: arial;
+		font-size: 8pt;
+		font-weight: normal;
+		color: #FFF;
+	}
+	#hsc_loc, #hsc_int {
+		font-size: 90%; 
+	}
+}
+				
+@media only screen and (max-width: 319px) {
+	.sprite-size {
+		background-size: 240px 360px;
+	}
+	.d3 {
+		width:48px;
+		height:45px;
+	}
+	.d2 {
+		width: 60px; 
+		height: 60px; 
+	}
+	.d1 {
+		width: 80px; 
+		height: 90px; 
+	}
+	.text-title {
+		font-size: 30pt;
+	}
+	.text-subtitle {
+		font-size: 10pt; 
+		color: #FFFFFF;
+	}
+	.help-text {
+		font-size: 80%; 
+	}
+	.text-title-2 {
+		font-size: 30pt;
+	}
+	#hsc_loc, #hsc_int {
+		font-size: 80%; 
+	}
+	.highscore-title {
+		font-size: 10pt; 
+	}
+	.icons {
+		background-image:url('../images/icons-18-white.png');
+	}
+	.icons-black {
+		background-image:url('../images/icons-18-black.png');
+	}
+	.icons-size {
+		width: 18px;
+		height: 18px;
+		margin: auto;
+	}
+	.param {
+		background-position: -288px;
+	} 
+	.quit {
+		background-position: -72px;
+	} 
+	.help {
+		background-position: -540px;
+	} 
+	.new {
+		background-position: -468px;
+	} 
+	.right {
+		background-position: -108px;
+	} 
+	.left {
+		background-position: -144px;
+	} 
+}
+				
+@media only screen and (max-width: 239px) {
+	.sprite-size {
+		background-size: 160px 240px;
+	}
+	.d3 {
+		width:32px;
+		height:30px;
+	}
+	.d2 {
+		width: 40px; 
+		height: 40px; 
+	}
+	.d1 {
+		width: 53px; 
+		height: 60px; 
+	}
+	.menu {
+		height: 40px;
+		font-family: arial;
+		font-size: 8pt;
+		font-weight: normal;
+		color: #FFF;
+	}
+	.text-title {
+		font-size: 20pt;
+	}
+	.text-subtitle {
+		font-size: 8pt; 
+		color: #FFFFFF;
+	}
+	.help-subtitle {
+		font-size: 7pt; 
+	}
+	.help-text {
+		font-size: 70%; 
+	}
+	.text-title-2 {
+		font-size: 20pt;
+	}
+	#hsc_loc, #hsc_int {
+		font-size: 70%; 
+	}
+	.highscore-title {
+		font-size: 7pt; 
+	}
+}
