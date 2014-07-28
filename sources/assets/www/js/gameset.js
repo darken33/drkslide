@@ -14,6 +14,7 @@ var nbfiledw = 0;
 var dwprogress = 0;
 var thread_download = null;
 var thread_readgs = null;
+var lastVisit = null;
 /**
  * Service de liste des gameset
  */  
@@ -52,13 +53,37 @@ function gamesetListService() {
 }
 
 /**
+ * Verification de nouveau Gamesets
+ */ 
+function gamesetLastUpdate() {
+	$('#loadnew').show();
+	$('#txtnew').html(texte_gameset_message_new[game_options.lang]);
+	vdate = (new Date()).toJSON();
+	url = drkSlideUrl + "/services/gamesets_update.php?v="+vdate;
+	$.getJSON(url, function(data) {
+		lastVisit = data;
+		$('#txtnew').html(texte_gameset_message_new[game_options.lang]);
+		if (lastVisit.dateUpdate > game_options.visit) {
+			$('#msgnew').show();
+		}
+		$('#loadnew').hide();
+		game_options.visit = lastVisit.dateVisit;
+		writeOptions();
+	}).fail(function() {
+		$('#msgnew').hide();
+		$('#loadnew').hide();
+	});
+}
+
+
+/**
  * Gestion des gamesets
  */ 
 function gamesetManagement() {
 //	if ($('#game_gameset').val() == "gerer") {
 		$.mobile.changePage('#loading', { transition: "none", changeHash: false, reloadPage: false, allowSamePageTransition: true });
 		$("#error_gs").html("");
-		url = drkSlideUrl + "/services/gamesets_service.php?v=20140220";
+		url = drkSlideUrl + "/services/gamesets_service.php?v="+(lastVisit != null ? lastVisit.dateUpdate : "");
 		$.getJSON(url, function(data) {
 			gamesetHosted = data;
 			listGS_txt = data.gameset;
@@ -137,7 +162,7 @@ function gamesetManagement() {
 
 /**
  * recupère un gameset via son nom
- */ 
+ */  
 function getGameSet(name, gslist) {
 	var gs = null;
 	for (j = 0; j < gslist.length; j++) {

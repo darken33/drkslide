@@ -47,3 +47,4 @@ texte_gameset_gerer['en'] = "Manage";
 texte_gameset_error['en'] = "No internet connexion...";
 texte_gameset_delete_error['en'] = "Can't delete ";
 texte_gameset_create_error['en'] = "Can't create ";
+texte_gameset_message_new['en'] = "New Gamesets Available";

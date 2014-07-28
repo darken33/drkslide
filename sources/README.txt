@@ -1,4 +1,4 @@
-drkSlide v1.4
+drkSlide v1.5
 Le jeu du Taquin pour mobile
 ------------------------------------------------------------------------
 
@@ -63,8 +63,12 @@ vous béneficiez des quatre libertés fondamentales :
 
 Changelog
 ---------
+v1.5 :
+ - Détection des nouveaux thèmes disponibles
+ - Tirer un nouveau tableau en fin de partie
+ - Correction de quelques textes accentués
 v1.4 :
- - Suppor multi-langues (Français et Anglais)
+ - Support multi-langues (Français et Anglais)
 v1.3 :
  - Possibilité de charger de nouveaux gameset
  - Creation d'un gameset "Toulouse" 

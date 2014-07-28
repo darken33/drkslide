@@ -63,6 +63,7 @@ function fillHighscoreLocHtml(nbdep, duree, score) {
 }
 
 function quithscl() {
+	levelRandom(game_options.difficulty);
 	$(".title").show();
 	$(".title2").show();
 	ingame = false;

@@ -47,3 +47,4 @@ var texte_gameset_gerer = new Array();
 var texte_gameset_error = new Array();
 var texte_gameset_delete_error = new Array();
 var texte_gameset_create_error = new Array();
+var texte_gameset_message_new = new Array();

@@ -443,6 +443,8 @@ function start() {
 		$("#menu").hide();
 	}
 	if (!ingame && $("#game").is(':visible') && !$("#splash").is(':visible')) {
+		$('#loadnew').hide();
+		$('#msgnew').hide();
 		$(".title").hide();
 		$(".title2").hide();
 		started = true;
@@ -660,6 +662,8 @@ var onDeviceReady = function() {
 	if (!ready) {
 		document.addEventListener("backbutton", onBackButton, true);
 		document.addEventListener("menubutton", onMenuButton, true);
+		$('#msgnew').hide();
+		$('#loadnew').hide();
 		initFileSystem();
 		loadSounds();
 		n=0;
@@ -672,6 +676,7 @@ var onDeviceReady = function() {
 			initOptions();
 			initHighscores();	
 		}
+		gamesetLastUpdate();
 		updateMenu();
 		refreshTitle(); 
 		$.mobile.changePage('#game', 'none', true, true);
