@@ -315,6 +315,12 @@ function levelRandom(d) {
 	}
 	drawFirst();
 }
+function levelRandom2(d) {
+	initGrille(d);
+	ingame=false;
+	lvl = Math.floor((Math.random()*nb_level)+1); 
+	drawFirst();
+}
 
 /**
  * drawFirst() - Afficher le tableau + le titre du jeu

@@ -1,4 +1,4 @@
-drkSlide v1.5
+drkSlide v1.5.1
 Le jeu du Taquin pour mobile
 ------------------------------------------------------------------------
 
@@ -63,6 +63,9 @@ vous béneficiez des quatre libertés fondamentales :
 
 Changelog
 ---------
+v1.5.1 :
+ - Ne pas afficher le nouveu tableau entre les deux écrans d'highscore
+ - Correction sur le numéro de version de l'écran d'aide
 v1.5 :
  - Détection des nouveaux thèmes disponibles
  - Tirer un nouveau tableau en fin de partie
