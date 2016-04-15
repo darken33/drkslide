@@ -7,7 +7,7 @@
  * 
  * This software is under GNU General Public License
  */
-var game_version  = "1.6.1";
+var game_version  = "1.7";
 var navplay = false;
 var duree = 0;
 var score = 0;
@@ -504,7 +504,9 @@ function quit() {
 
 function quitConfirm(btnIdx) {
 	if (btnIdx == 1) {
-		navigator.app.exitApp();
+		if (device.platform == "firefoxos") window.close();
+		else navigator.app.exitApp();
+		
 	}
 }
 
@@ -554,8 +556,11 @@ function param() {
 	if (game_options.helponstart) $('#game_help').attr('checked', true);
 	if (game_options.soundactive) $('#game_sound').attr('checked', true);
 	if (game_options.sharescore) $('#game_score').attr('checked', true);
-	$('#game_sound').checkboxradio().checkboxradio("refresh");
+	//if (device.platform == "firefoxos") {
+	//	$('#game_sound').checkboxradio().checkboxradio("disable");
+	//}
 	$('#game_help').checkboxradio().checkboxradio("refresh");
+	$('#game_sound').checkboxradio().checkboxradio("refresh");
 	$('#game_score').checkboxradio().checkboxradio("refresh");
 	$.mobile.changePage('#param-1', 'none', true, true);
 }
@@ -593,6 +598,12 @@ function unbindGame() {
 	$("#lvldown").off("tap");	
 	$("#lvlup").off("tap");	
 	$("#btngo").off("tap");
+	$("#b_btn_gerer").off("tap");
+	$("#hsc_local").off("tap");
+	$("#hsc_internet").off("tap");
+	$("#param_back").off("tap");
+	$("#gs_back").off("tap");
+	$("#hlp_back").off("tap");
 }
 
 /**
@@ -652,6 +663,24 @@ function bindGame() {
 		event.stopPropagation();
 		start();
 	});
+	$("#b_btn_gerer").on("tap", function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		gamesetManagement();
+	});
+	$("#hsc_local").on("tap", function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		quithscl();
+	});
+	$("#hsc_internet").on("tap", function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		quithsci();
+	});
+	$("#param_back").on("tap", onBackButton);
+	$("#gs_back").on("tap", onBackButton);
+	$("#hlp_back").on("tap", onBackButton);
 }
 
 /**
@@ -856,11 +885,25 @@ var onDeviceReady = function() {
 	if (!ready) {
 		document.addEventListener("backbutton", onBackButton, true);
 		document.addEventListener("menubutton", onMenuButton, true);
+		document.querySelector("#game_lang").addEventListener("change", function onchange(event) {
+			loading(); 
+			updateParam(); 
+			param();
+			event.preventDefault();
+		}, true);
+		document.querySelector("#game_gameset").addEventListener("change", function onchange(event) {
+			updateParam(); 
+			event.preventDefault();
+		}, true);
 		$('#msgnew').hide();
 		$('#loadnew').hide();
+		if (device.platform == "firefoxos") {
+			$('#gr_btn_gerer').hide();
+			gs2load=0;
+		}
 		initFileSystem();
-		loadSounds();
 		updateWidth();
+		loadSounds();
 		if (navplay) {
 			new_install = true;
 			initOptions();
@@ -882,3 +925,4 @@ function activateApp() {
 	}
 }
 
+init();

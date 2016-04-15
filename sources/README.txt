@@ -1,4 +1,4 @@
-drkSlide v1.6
+drkSlide v1.7
 Le jeu du Taquin pour mobile
 ------------------------------------------------------------------------
 
@@ -46,9 +46,9 @@ drkSlide est une application hybride dévelopée avec les technologies :
   - html5
   - PhoneGap
   - JQueryMobile
-Au jour d'aujourd'hui elle a  étée packagée  pour le système android, 
-mais toute personne qui le désire peut la packager pour les smartphones
-suivant : iphone, windowsphone, blackberry, bada, ect...
+Au jour d'aujourd'hui elle a  étée packagée  pour les systèmes android
+et firefoxos, mais toute personne qui le désire peut la packager pour 
+les smartphones suivant : iphone, windowsphone, blackberry, bada, ect...
 
 Logiciel Libre
 --------------
@@ -63,6 +63,9 @@ vous béneficiez des quatre libertés fondamentales :
 
 Changelog
 ---------
+v1.7 :
+ - support firefoxos
+ - correctif sur l'annulation du téléchargement d'un thème
 v1.6.1 :
  - Correction du téléchargement des thèmes
  - Utilisation des boites de dialogues cordova

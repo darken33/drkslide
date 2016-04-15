@@ -1,6 +1,7 @@
 /**
  * FS.js - script pour accéder au FileSystem du téléphone
  */
+var sdcard=null;
 var directoryName = "drkslide";
 var gamesetDir = "gameset";
 var gamesetReader;
@@ -60,6 +61,7 @@ function onFileHighscInitSuccess(_fileentry) {
  */
 function onFSError(_error) {
 	var message = "File System Error: " + _error.code;
+	alert(message);
 	initOptions();
 	initHighscores();
 	// on est en erreur
@@ -73,7 +75,7 @@ function onFSError(_error) {
  */ 
 function readOptions(_file) {
 	var reader = new FileReader();
-	reader.onloadend = function(_evt) {
+	reader.onload = function(_evt) {
 		var res = _evt.target.result;
 		var list;
 		if (res == "" || res == null) {
@@ -137,49 +139,66 @@ function readHighscores(_file) {
  * writeTodoList - ecriture du fichier TODO
  */ 
 function writeOptions() {
-	ficoptions.createWriter(
-		function(writer) {
-			var text = game_options.difficulty + '\n' + game_options.playername + '\n' + 
+    if (device.platform == "firefoxos") {
+		ffosFileOptionDelete();
+	}
+	else { 
+		ficoptions.createWriter(
+			function(writer) {
+				var text = game_options.difficulty + '\n' + game_options.playername + '\n' + 
 					game_options.helponstart + '\n' + game_options.soundactive + '\n' +	
 					game_options.sharescore + '\n' + game_options.gameset + '\n' + 
 					game_options.lang + '\n' + game_options.visit;
-			writer.onerror = onFSError;
-			writer.write(text);
-		}, onFSError
-	);
+				writer.onerror = onFSError;
+				writer.write(text);
+			}, onFSError
+		);
+	}
 }
 
-function writeHighscores(writer) {
-	fichighsc.createWriter(
-		function(writer) {
-			var text = '';
-			var hs = "";
-			for (i = 0; i < 10; i++) {
-				hs = game_highscores.facile[i];
-				text += hs.name + "#" + hs.depl + "#" + hs.time + "#" + hs.score + '\n';
-			}
-			for (i = 0; i < 10; i++) {
-				hs = game_highscores.moyen[i];
-				text += hs.name + "#" + hs.depl + "#" + hs.time + "#" + hs.score + '\n';
-			}
-			for (i = 0; i < 10; i++) {
-				hs = game_highscores.difficile[i];
-				text += hs.name + "#" + hs.depl + "#" + hs.time + "#" + hs.score + '\n';
-			}
-			writer.onerror = onFSError;
-			writer.write(text);
-		}, onFSError
-	);
+function writeHighscores() {
+    if (device.platform == "firefoxos") {
+		ffosFileHighscoreDelete();
+	}
+	else { 
+		fichighsc.createWriter(
+			function(writer) {
+				var text = '';
+				var hs = "";
+				for (i = 0; i < 10; i++) {
+					hs = game_highscores.facile[i];
+					text += hs.name + "#" + hs.depl + "#" + hs.time + "#" + hs.score + '\n';
+				}
+				for (i = 0; i < 10; i++) {
+					hs = game_highscores.moyen[i];
+					text += hs.name + "#" + hs.depl + "#" + hs.time + "#" + hs.score + '\n';
+				}
+				for (i = 0; i < 10; i++) {
+					hs = game_highscores.difficile[i];
+					text += hs.name + "#" + hs.depl + "#" + hs.time + "#" + hs.score + '\n';
+				}
+				writer.onerror = onFSError;
+				writer.write(text);
+			}, onFSError
+		);
+	}
 }
 
 /**
  * initFileSystem - intialisation du File System
  */
 function initFileSystem() {
-	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFSInitSuccess, 
-	function(_evt){	
-		onFSError(_evt.target);
-	}); 
+    if (device.platform == "firefoxos") {
+		sdcard=navigator.getDeviceStorage("sdcard");
+		ffosFileOptionRead();
+		ffosFileHighscoreRead();
+	}
+	else { 
+		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFSInitSuccess, 
+		function(_evt){	
+			onFSError(_evt.target);
+		});
+	} 
 }
 
 /**
@@ -261,7 +280,6 @@ function onGamesetOpenSucess(_fileentry) {
  */
 function onGamesetFail(_error) {
 	var message = "File System Error: " + _error.code;
-	//alert(message);
     console.log(message);
     gs2load--;
 	activateApp();
@@ -305,4 +323,78 @@ function onGSError(_error) {
     gs2load=0;
 	activateApp();
     console.log(message);
+}
+
+function ffosFileOptionRead() {
+	var request = sdcard.get(directoryName+"/"+fileNameOptions);
+	request.onsuccess = function () {
+		ficoptions = this.result;
+		readOptions(ficoptions);
+	}
+	request.onerror = function() {
+		initOptions();
+        ready_option = true;
+		activateApp();
+	}
+}
+
+function ffosFileHighscoreRead() {
+	var request = sdcard.get(directoryName+"/"+fileNameHighsc);
+	request.onsuccess = function () {
+		fichighsc = this.result;
+		readHighscores(fichighsc);
+	}
+	request.onerror = function() {
+		initHighscores();
+        ready_highsc = true;
+		activateApp();
+	}
+}
+
+function ffosFileOptionWrite() {
+	var text = game_options.difficulty + '\n' + game_options.playername + '\n' + 
+		game_options.helponstart + '\n' + game_options.soundactive + '\n' +	
+		game_options.sharescore + '\n' + game_options.gameset + '\n' + 
+		game_options.lang + '\n' + game_options.visit;
+	var file = new Blob( [text], {type: "text/plain"});	
+	request = sdcard.addNamed(file, directoryName+"/"+fileNameOptions);			
+}
+
+function ffosFileHighscoreWrite() {
+	var text = '';
+	var hs = "";
+	for (i = 0; i < 10; i++) {
+		hs = game_highscores.facile[i];
+		text += hs.name + "#" + hs.depl + "#" + hs.time + "#" + hs.score + '\n';
+	}
+	for (i = 0; i < 10; i++) {
+		hs = game_highscores.moyen[i];
+		text += hs.name + "#" + hs.depl + "#" + hs.time + "#" + hs.score + '\n';
+	}
+	for (i = 0; i < 10; i++) {
+		hs = game_highscores.difficile[i];
+		text += hs.name + "#" + hs.depl + "#" + hs.time + "#" + hs.score + '\n';
+	}
+	var file = new Blob( [text], {type: "text/plain"});	
+	request = sdcard.addNamed(file, directoryName+"/"+fileNameHighsc);			
+}
+
+function ffosFileOptionDelete() {
+	var request = sdcard.delete(directoryName+"/"+fileNameOptions);
+	request.onsuccess = function() {
+		ffosFileOptionWrite();
+	}
+	request.onerror = function() {
+		ffosFileOptionWrite();
+	}
+}
+
+function ffosFileHighscoreDelete() {
+	var request = sdcard.delete(directoryName+"/"+fileNameHighsc);
+	request.onsuccess = function() {
+		ffosFileHighscoreWrite();
+	}
+	request.onerror = function() {
+		ffosFileHighscoreWrite();
+	}
 }

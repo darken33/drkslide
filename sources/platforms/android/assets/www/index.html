@@ -19,7 +19,24 @@
 		<script src="js/game.js" type="text/javascript"></script> 
 		<script src="js/gameset.js" type="text/javascript"></script> 
 	</head>
-	<body onload="init();">
+	<body>
+		<!-- balises audio pour le son -->
+		<audio id="clac_snd">
+			<source src="./sound/clac.ogg" type="audio/ogg"> 
+			<source src="./sound/clac.mp3" type="audio/mpeg"> 
+			<source src="./sound/clac.wav" type="audio/wav"> 
+		</audio>
+		<audio id="melange_snd">
+			<source src="./sound/melange.ogg" type="audio/ogg"> 
+			<source src="./sound/melange.mp3" type="audio/mpeg"> 
+			<source src="./sound/melange.wav" type="audio/wav"> 
+		</audio>
+		<audio id="yeah_snd">
+			<source src="./sound/oh_yeah.ogg" type="audio/ogg"> 
+			<source src="./sound/oh_yeah.mp3" type="audio/mpeg"> 
+			<source src="./sound/oh_yeah.wav" type="audio/wav"> 
+		</audio>
+		
 		<!-- 
 			page de Chargement
 		-->
@@ -61,7 +78,8 @@
 			-->
 			<div id="loadnew" style="background: #000000; position: fixed; left: 0; top: 0; height: 36px; width: 100%; z-index: 800; font-family: Times, serif;"><img src="images/ajax-loader.gif" width="36" height="36"/></div>			
 			<div id="msgnew" style="background: none; position: fixed; left: 0; top: 0; height: 36px; width: 100%; z-index: 800; font-family: Times, serif;"><p id="txtnew" class="text-subtitle" style="color: gold">New Gamesets Available</p></div>			
-			<div class="title" style="background: none; position: fixed; right: 0; top: 0; height: 36px; width: 36px; z-index: 999"><a id="menub"><div class="icons bars icons-size" ></div></a></div>			
+			<!-- <div class="title" style="background: none; position: fixed; right: 0; top: 0; height: 36px; width: 36px; z-index: 999"><a id="menub"><div class="icons bars icons-size" ></div></a></div> -->
+			<div class="title" style="background: none; position: fixed; right: 0; top: 0; z-index: 999"><a href="#" id="menub" data-role="button" data-theme="a" data-icon="bars" data-iconpos="notext" data-inline="true">Menu</a></div>			
 			<!--
 				La grille de jeu
 			-->
@@ -74,11 +92,13 @@
 			<!--
 				Le bouton précédent
 			-->
-			<div class="title" style="background: none; position: fixed; left: 0; top: 45%; height: 36px; width: 36px;"><a id="lvldown"><div class="icons left icons-size" ></div></a></div>
+			<div class="title" style="background: none; position: fixed; left: 0; top: 45%;"><a href="#" id="lvldown" data-role="button" data-theme="a" data-icon="arrow-l" data-iconpos="notext" data-inline="true">Prev</a></div>
+			<!-- <div class="title" style="background: none; position: fixed; left: 0; top: 45%; height: 36px; width: 36px;"><a id="lvldown"><div class="icons left icons-size" ></div></a></div> -->
 			<!--
 				Le bouton précédent
 			-->
-			<div class="title" style="background: none; position: fixed; right: 0; top: 45%; height: 36px; width: 36px;"><a id="lvlup"><div class="icons right icons-size"></div></a></div>
+			<!-- <div class="title" style="background: none; position: fixed; right: 0; top: 45%; height: 36px; width: 36px;"><a id="lvlup"><div class="icons right icons-size"></div></a></div> -->
+			<div class="title" style="background: none; position: fixed; right: 0; top: 45%;"><a href="#" id="lvlup" data-role="button" data-theme="a" data-icon="arrow-r" data-iconpos="notext" data-inline="true">Next</a></div>
 			<div class="title2" style="background: none; position: fixed; top: 75%; width: 100%; text-align: center; display: none;">
 				<div class="button-go"><a id="btngo" data-theme="a" data-role="button">GO</a></div>
 			</div>
@@ -87,7 +107,7 @@
 		<!--
 			page higscores locaux
 		-->	
-		<div data-role="page" id="hsc_local" onclick="quithscl();">
+		<div data-role="page" id="hsc_local">
 			<!-- 
 				Le Tableau des scores
 			-->	
@@ -113,7 +133,7 @@
 		<!--
 			page highscores mondiaux
 		-->	
-		<div data-role="page" id="hsc_internet"  onclick="quithsci();">
+		<div data-role="page" id="hsc_internet" >
 			<!-- 
 				Le Tableau des scores
 			-->	
@@ -142,8 +162,9 @@
 		<div data-role="page" id="aide-1" style="background: #fff; color: #000">
 			<div class="help-content">
 				<div class="help-title" style="position: fixed; top:0;">
+					<a href="#" id="hlp_back" data-role="button" data-theme="a" data-icon="arrow-l" data-iconpos="notext" data-inline="true">Back</a>
 					drkSlide v1.6.1<br/>
-					<span class="help-subtitle" id="help_subtitle">Le jeu du Taquin pour mobiles<span>
+					<span class="help-subtitle" id="help_subtitle" style="display:none;">Le jeu du Taquin pour mobiles<span>
 				</div>
 				<div class="help-text" style="position: static;" id="help_content">
 				<strong>Introduction</strong><br/>	
@@ -174,13 +195,14 @@
 		-->	
 		<div data-role="page" id="param-1" style="background: #000; color: #fff">
 			<div class="param-content">
-				<div class="param-title" style="position: fixed; top:0; padding: 5px; width: 100%; background: #909090; color: #fff; z-index: 999;"  id="txt_param">
-					Param&egrave;tres
+				<div class="param-title" style="position: fixed; top:0; padding: 5px; width: 100%; background: #909090; color: #fff; z-index: 999;">
+					<a href="#" id="param_back" data-role="button" data-theme="a" data-icon="arrow-l" data-iconpos="notext" data-inline="true">Back</a>
+					<span id="txt_param">Param&egrave;tres</span>
 				</div>
 				<div data-role="content">
 					<div data-role="fieldcontain">
 						<label for="game_lang" id="l_game_lang">Langage :</label>
-						<select id="game_lang" name="game_lang" data-theme="a" data-native-menu="true" tabindex="-1" onchange="loading(); updateParam(); param();">
+						<select id="game_lang" name="game_lang" data-theme="a" data-native-menu="true" tabindex="-1">
 							<option value="fr">Fran&ccedil;ais</option>
 							<option value="en">Anglais</option>
 						</select>
@@ -199,18 +221,18 @@
 					</div>
 					<div data-role="fieldcontain">
 						<label for="game_gameset" id="l_game_gameset">Set de Jeu :</label>						
-						<select id="game_gameset" name="game_gameset" data-theme="a" data-native-menu="true" tabindex="-1"  onchange="updateParam()">
+						<select id="game_gameset" name="game_gameset" data-theme="a" data-native-menu="true" tabindex="-1">
 							<option value="default">D&eacute;faut</option>
 						</select>
-						<div style="text-align: right">
-							<a href="#" data-role="button" data-icon="gear" data-theme="e" data-iconpos="left" data-inline="true" onclick="gamesetManagement()"><span id="l_btn_gerer">G&eacute;rer</span></a>
+						<div id="gr_btn_gerer" style="text-align: right">
+							<a href="#" data-role="button" data-icon="gear" data-theme="e" data-iconpos="left" data-inline="true" id="b_btn_gerer"><span id="l_btn_gerer">G&eacute;rer</span></a>
 						</div>
 					</div>
 					<div id="checkboxes1" data-role="fieldcontain">
 						<fieldset data-role="controlgroup" data-type="vertical">
 							<legend id="l_game_options">Options :</legend>
 							<label><input id="game_help" name="game_help" data-theme="a" type="checkbox"><span id="l_game_help">Aide au d&eacute;marrage</span></label>
-							<label><input id="game_sound" name="game_sound" data-theme="a" type="checkbox"><span id="l_game_sound">Activer les sons</span></label>
+							<label id="game_snd_b"><input id="game_sound" name="game_sound" data-theme="a" type="checkbox"><span id="l_game_sound">Activer les sons</span></label>
 							<label><input id="game_score" name="game_score" data-theme="a" type="checkbox"><span id="l_game_score">Partager le score sur Internet</span></label>
 						</fieldset>
 					</div>
@@ -223,8 +245,9 @@
 		-->	
 		<div data-role="page" id="param-2" style="background: #000; color: #fff">
 			<div class="param-content">
-				<div class="param-title" style="position: fixed; top:0; padding: 5px; width: 100%; background: #909090; color: #fff; z-index: 999;" id="param_gameset_title">
-					Gestion des Gamesets
+				<div class="param-title" style="position: fixed; top:0; padding: 5px; width: 100%; background: #909090; color: #fff; z-index: 999;">
+					<a href="#" id="gs_back" data-role="button" data-theme="a" data-icon="arrow-l" data-iconpos="notext" data-inline="true">Back</a>
+					<span id="param_gameset_title">Gestion des Gamesets</span>
 				</div>
 				<div data-role="content">
 					<div id="error_gs" style="text-align: left; color: #ff0000;">Pas de connexion internet...</div>

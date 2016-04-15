@@ -1,0 +1,23 @@
+{
+    "launch_path": "/index.html",
+    "installs_allowed_from": [
+        "*"
+    ],
+    "version": "1.7",
+    "name": "drkSlide",
+    "description": "A 15-Puzzle game for smartphone.",
+    "developer": {
+        "name": "Philippe Bousquet",
+        "url": "http://darken33.free.fr/?page_id=2"
+    },
+    "orientation": ["portrait"],
+    "permissions": {
+        "systemXHR": {},
+        "device-storage:sdcard":{"access": "readwrite"}
+    },
+    "type": "privileged",
+    "icons": {
+        "60": "/icon/icon-60.png",
+        "128": "/icon/icon-128.png"
+    }
+}

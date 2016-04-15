@@ -65,7 +65,7 @@ function gamesetLastUpdate() {
 	$.getJSON(url, function(data) {
 		lastVisit = data;
 		$('#txtnew').html(texte_gameset_message_new[game_options.lang]);
-		if (lastVisit.dateUpdate > game_options.visit) {
+		if (lastVisit.dateUpdate > game_options.visit && device.platform != "firefoxos") {
 			$('#msgnew').show();
 		}
 		$('#loadnew').hide();
@@ -77,6 +77,25 @@ function gamesetLastUpdate() {
 	});
 }
 
+function eventDwGs(evt) {
+	var gsn = evt.currentTarget.id.split("_");
+	downloadGameset(gsn[2],'DW');
+}
+
+function eventOkGs(evt) {
+	var gsn = evt.currentTarget.id.split("_");
+	downloadGameset(gsn[2],'OK');
+}
+
+function eventUpGs(evt) {
+	var gsn = evt.currentTarget.id.split("_");
+	downloadGameset(gsn[2],'UPG');
+}
+
+function eventDlGs(evt) {
+	var gsn = evt.currentTarget.id.split("_");
+	deleteGameset(gsn[2]);
+}
 
 /**
  * Gestion des gamesets
@@ -85,6 +104,7 @@ function gamesetManagement() {
 //	if ($('#game_gameset').val() == "gerer") {
 		$.mobile.changePage('#loading', { transition: "none", changeHash: false, reloadPage: false, allowSamePageTransition: true });
 		$("#error_gs").html("");
+		$('.btn_gg').off("tap");
 		url = drkSlideUrl + "/services/gamesets_service.php?v="+(lastVisit != null ? lastVisit.dateUpdate : "");
 		$.getJSON(url, function(data) {
 			gamesetHosted = data;
@@ -99,17 +119,33 @@ function gamesetManagement() {
 				gameset_list_html += '<td width="80%" style="text-align: left; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;">'+$.ucfirst(gs.name)+'</td>';
 				// OK, MAJ, DOWNLOAD
 				if (gsp == null) {
-					gameset_list_html +=	'<td width="10%" style="text-align: center; border-left: 1px #282828 solid; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a class="btn_gg" onclick="downloadGameset('+"'"+gs.name+"','DW'"+')" href="#" data-role="button" data-icon="arrow-d" data-iconpos="notext" data-theme="a" data-inline="true" style="background: #00FFFF; color: #FFFFFF;">Download</a></td>';
+					gameset_list_html +=	'<td width="10%" style="text-align: center; border-left: 1px #282828 solid; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a id="bt_dw_'+gs.name+'" class="btn_gg" href="#" data-role="button" data-icon="arrow-d" data-iconpos="notext" data-theme="a" data-inline="true" style="background: #00FFFF; color: #FFFFFF;">Download</a></td>';
 				}
 				else if (gs.date == gsp.date) {
-					gameset_list_html +=	'<td width="10%" style="text-align: center; border-left: 1px #282828 solid; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a class="btn_gg" onclick="downloadGameset('+"'"+gs.name+"','OK'"+')" href="#" data-role="button" data-theme="a" data-icon="check" data-iconpos="notext" data-inline="true" style="background: #00FF00; color: #FFFFFF;">Up to date</a></td>';
+					gameset_list_html +=	'<td width="10%" style="text-align: center; border-left: 1px #282828 solid; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a id="bt_dw_'+gs.name+'" class="btn_gg" href="#" data-role="button" data-theme="a" data-icon="check" data-iconpos="notext" data-inline="true" style="background: #00FF00; color: #FFFFFF;">Up to date</a></td>';
 				}
 				else {
-					gameset_list_html +=	'<td width="10%" style="text-align: center; border-left: 1px #282828 solid; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a class="btn_gg" onclick="downloadGameset('+"'"+gs.name+"','UPG'"+')" href="#" data-role="button" data-icon="refresh" data-iconpos="notext" data-theme="a" data-inline="true" style="background: Orange; color: #FFFFFF;">Refresh</a></td>';
+					gameset_list_html +=	'<td width="10%" style="text-align: center; border-left: 1px #282828 solid; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a id="bt_dw_'+gs.name+'" class="btn_gg" href="#" data-role="button" data-icon="refresh" data-iconpos="notext" data-theme="a" data-inline="true" style="background: Orange; color: #FFFFFF;">Refresh</a></td>';
 				}
+				/*
+				if (gsp == null) {
+					gameset_list_html +=	'<td width="10%" style="text-align: center; border-left: 1px #282828 solid; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a id="bt_dw_'+gs.name+'" class="btn_gg" onclick="downloadGameset('+"'"+gs.name+"','DW'"+')" href="#" data-role="button" data-icon="arrow-d" data-iconpos="notext" data-theme="a" data-inline="true" style="background: #00FFFF; color: #FFFFFF;">Download</a></td>';
+				}
+				else if (gs.date == gsp.date) {
+					gameset_list_html +=	'<td width="10%" style="text-align: center; border-left: 1px #282828 solid; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a id="bt_dw_'+gs.name+'" class="btn_gg" onclick="downloadGameset('+"'"+gs.name+"','OK'"+')" href="#" data-role="button" data-theme="a" data-icon="check" data-iconpos="notext" data-inline="true" style="background: #00FF00; color: #FFFFFF;">Up to date</a></td>';
+				}
+				else {
+					gameset_list_html +=	'<td width="10%" style="text-align: center; border-left: 1px #282828 solid; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a id="bt_dw_'+gs.name+'" class="btn_gg" onclick="downloadGameset('+"'"+gs.name+"','UPG'"+')" href="#" data-role="button" data-icon="refresh" data-iconpos="notext" data-theme="a" data-inline="true" style="background: Orange; color: #FFFFFF;">Refresh</a></td>';
+				}
+				*/
 				// DELETE ?
+				/*
 				if (gsp != null) {
-					gameset_list_html +=	'<td width="10%" style="text-align: center; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a class="btn_gg" onclick="deleteGameset('+"'"+gs.name+"'"+')"  href="#" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" data-inline="true" style="background: #FF0000; color: #FFFFFF;">Delete</a></td>';
+					gameset_list_html +=	'<td width="10%" style="text-align: center; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a class="btn_gg" id="bt_dl_'+gs.name+'" onclick="deleteGameset('+"'"+gs.name+"'"+')"  href="#" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" data-inline="true" style="background: #FF0000; color: #FFFFFF;">Delete</a></td>';
+				}
+				*/ 
+				if (gsp != null) {
+					gameset_list_html +=	'<td width="10%" style="text-align: center; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a class="btn_gg" id="bt_dl_'+gs.name+'" href="#" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" data-inline="true" style="background: #FF0000; color: #FFFFFF;">Delete</a></td>';
 				}
 				else {
 					gameset_list_html +=	'<td width="10%" style="text-align: center; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a class="btn_gg btn_dis" href="#" data-role="button" data-icon="minus" data-iconpos="notext" data-theme="a" data-inline="true">None</a></td>';
@@ -124,7 +160,8 @@ function gamesetManagement() {
 					gameset_list_html += '<tr>';
 					gameset_list_html +=    '<td width="80%" style="text-align: left; border-bottom: 1px #282828 solid;  border-top: 1px #282828 solid;">'+$.ucfirst(gsp.name)+'</td>';
 					gameset_list_html +=	'<td width="10%" style="text-align: center; border-left: 1px #282828 solid; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a class="btn_gg btn_dis" href="#" data-role="button" data-icon="minus" data-iconpos="notext" data-theme="a" data-inline="true" >None</a></td>';
-					gameset_list_html +=	'<td width="10%" style="text-align: center; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a class="btn_gg"  onclick="deleteGameset('+"'"+gsp.name+"'"+')" href="#" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" data-inline="true" style="background: #FF0000; color: #FFFFFF;">Delete</a></td>';
+//					gameset_list_html +=	'<td width="10%" style="text-align: center; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a class="btn_gg" id="bt_dl_'+gsp.name+'" onclick="deleteGameset('+"'"+gsp.name+"'"+')" href="#" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" data-inline="true" style="background: #FF0000; color: #FFFFFF;">Delete</a></td>';
+					gameset_list_html +=	'<td width="10%" style="text-align: center; border-bottom: 1px #282828 solid; border-top: 1px #282828 solid;"><a class="btn_gg" id="bt_dl_'+gsp.name+'" href="#" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" data-inline="true" style="background: #FF0000; color: #FFFFFF;">Delete</a></td>';
 					gameset_list_html += '</tr>';
 				}
 			}	
@@ -133,6 +170,32 @@ function gamesetManagement() {
 			$('.btn_gg').button();
 			$('.btn_dis').addClass("ui-disabled");			
 			$('#param_gameset_title').html(texte_gameset_titre[game_options.lang]);
+			// ajouter les events
+			for (i = 0; i < gamesetHosted.gameset.length; i++) {
+				gs = gamesetHosted.gameset[i];
+				gsp = getGameSet(gs.name, gamesets);
+				// OK, MAJ, DOWNLOAD
+				if (gsp == null) {
+					$("#bt_dw_"+gs.name).on("tap", eventDwGs);
+				}
+				else if (gs.date == gsp.date) {
+					$("#bt_dw_"+gs.name).on("tap", eventOkGs);
+				}
+				else {
+					$("#bt_dw_"+gs.name).on("tap", eventUpGs);
+				}
+				// DELETE ?
+				if (gsp != null) {
+					$("#bt_dl_"+gs.name).on("tap", eventDlGs);
+				}
+			}
+			for (i = 0; i < gamesets.length; i++) {
+				gsp = gamesets[i];
+				gs = getGameSet(gsp.name, gamesetHosted.gameset);
+				if (gs == null) {
+					$("#bt_dl_"+gsp.name).on("tap", eventDlGs);
+				}
+			}	
 			$.mobile.changePage('#param-2', { transition: "none", changeHash: false, reloadPage: false, allowSamePageTransition: true });
 
 		}).fail(function() {

@@ -18,7 +18,15 @@ function soundErr(err) {
 }
 
 function loadSounds() {
-	m_clac = new Media(clac_snd, soundLoaded, soundErr);
-	m_melange = new Media(melange_snd, soundLoaded, soundErr);
-	m_yeah = new Media(yeah_snd, soundLoaded, soundErr);
+	if (device.platform == "firefoxos") {
+		m_clac = document.getElementById("clac_snd");
+		m_melange = document.getElementById("melange_snd");
+		m_yeah = document.getElementById("yeah_snd");
+		sound_loaded = 3;
+	}
+	else {
+		m_clac = new Media(clac_snd, soundLoaded, soundErr);
+		m_melange = new Media(melange_snd, soundLoaded, soundErr);
+		m_yeah = new Media(yeah_snd, soundLoaded, soundErr);
+	}
 }

@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="fr.free.darken33.puzzle.drkslide" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="fr.free.darken33.puzzle.drkslide" version="1.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>drkSlide</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        A 15-Puzzle game for smartphone.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="darken33@free.fr" href="http://darken33.free.fr/?page_id=2">
+        Philippe Bousquet
     </author>
     <content src="index.html" />
     <access origin="*" />
