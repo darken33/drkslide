@@ -15,23 +15,16 @@
        KIND, either express or implied.  See the License for the
        specific language governing permissions and limitations
        under the License.
- */
+*/
 
-package fr.free.darken33.puzzle.drkslide;
 
-import android.os.Bundle;
-import org.apache.cordova.*;
+package org.apache.cordova.file;
 
-public class drkSlide extends DroidGap
-{
-    @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-    	super.setIntegerProperty("loadUrlTimeoutValue", 60000);
-        super.onCreate(savedInstanceState);
-        // Set by <content src="index.html" /> in config.xml
-        super.loadUrl(Config.getStartUrl());
-        //super.loadUrl("file:///android_asset/www/index.html")
+@SuppressWarnings("serial")
+public class TypeMismatchException extends Exception {
+
+    public TypeMismatchException(String message) {
+        super(message);
     }
-}
 
+}
