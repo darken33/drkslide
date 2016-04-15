@@ -1,0 +1,3 @@
+# view AndroidManifest.xml #generated:6
+-keep class fr.free.darken33.puzzle.drkslide.CordovaApp { <init>(...); }
+

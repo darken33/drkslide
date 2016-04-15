@@ -1,4 +1,4 @@
-drkSlide v1.5.1
+drkSlide v1.6
 Le jeu du Taquin pour mobile
 ------------------------------------------------------------------------
 
@@ -63,6 +63,11 @@ vous béneficiez des quatre libertés fondamentales :
 
 Changelog
 ---------
+v1.6.1 :
+ - Correction du téléchargement des thèmes
+ - Utilisation des boites de dialogues cordova
+v1.6 :
+ - Passage a cordova 4.0.0 suite à une alerte de sécurité
 v1.5.1 :
  - Ne pas afficher le nouveu tableau entre les deux écrans d'highscore
  - Correction sur le numéro de version de l'écran d'aide
