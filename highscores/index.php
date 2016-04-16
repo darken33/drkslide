@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <?php
  $dbuser = "" ;
- $dbhost = "";
- $dbname = ""; 
+ $dbhost = "localhost";
+ $dbname = "drkslide"; 
  $dbpasswd = "";
  // On récupère la difficulté (par defaut 1 : Facile)
  $d = (isset($_GET['d']) ? $_GET['d'] : 1);
@@ -22,7 +22,7 @@
 		<title>drkSlide - Monuments de Bordeaux</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css">
-		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/main.css?v4">
 		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/jquery-ui-1.8.18.custom.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/jquery.mobile-1.3.1.min.js" type="text/javascript" charset="utf-8"></script>

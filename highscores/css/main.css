@@ -2,7 +2,7 @@ body {
 	margin:0; 
 	padding:0; 
 	text-align: center; 
-	background: #000000; /*383838;*/ 
+	background: #1b87e2; /*383838;*/ 
 	color: #ff00ff;
 	font-weight: bold;
 	font-size: 100%;
@@ -11,14 +11,17 @@ body {
 }
 .ui-mobile, .ui-mobile .ui-page {
     min-height: 0;
-	background: #000000; /*383838;*/ 
+	background: #1b87e2; /*383838;*/ 
 	color: #ff00ff;
 	font-weight: bold;
 	font-size: 100%;
 	text-shadow: 1px 1px #000000;
 }
 #game, #hsc_local, #hsc_internet {
-	background-image:url('../images/bg_std.jpg');
+	background-image:url('../images/fond_ecran_drkslide.jpg');
+	background-attachment:fixed; 
+	background-position: 0% 0%;
+	background-repeat:no-repeat;
 }
 .popup {
     position: fixed;
@@ -241,6 +244,9 @@ table.highscore td {
 	.help-text {
 		font-size: 150%; 
 	}
+	#game, #hsc_local, #hsc_internet {
+		background-size: 1024px 1820px;
+	}
 }
 				
 @media only screen and (max-width: 767px) {
@@ -277,6 +283,9 @@ table.highscore td {
 	}
 	.highscore-title {
 		font-size: 15pt; 
+	}
+	#game, #hsc_local, #hsc_internet {
+		background-size: 800px 1425px;
 	}
 }
 
@@ -315,6 +324,9 @@ table.highscore td {
 	.highscore-title {
 		font-size: 12pt; 
 	}
+	#game, #hsc_local, #hsc_internet {
+		background-size:  640px 1140px;
+	}
 }
 
 @media only screen and (max-width: 479px) {
@@ -345,6 +357,9 @@ table.highscore td {
 	}
 	#hsc_loc, #hsc_int {
 		font-size: 90%; 
+	}
+	#game, #hsc_local, #hsc_internet {
+		background-size: 480px 855px;
 	}
 }
 				
@@ -412,6 +427,9 @@ table.highscore td {
 	.left {
 		background-position: -144px;
 	} 
+	#game, #hsc_local, #hsc_internet {
+		background-size: 360px 640px;
+	}
 }
 				
 @media only screen and (max-width: 239px) {
@@ -459,4 +477,13 @@ table.highscore td {
 	.highscore-title {
 		font-size: 7pt; 
 	}
+	#game, #hsc_local, #hsc_internet {
+		background-size: 240px 426px;
+	}
 }
+@media only screen and (min-width: 1025px) {
+	#game, #hsc_local, #hsc_internet {
+		background-size: 1900px 3380px;
+	}
+}
+
