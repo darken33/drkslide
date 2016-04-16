@@ -2,13 +2,12 @@
 /**
  * Simple Webservice REST en PHP / JSON
  */
- include("json_utils.php");
  include("http_response_code.php");
  
- $id_key = "f86c9d12e8c7eb2e6adc1c03738a1cc9";
+ $id_key = "";
  $dbuser = "" ;
- $dbhost = "";
- $dbname = ""; 
+ $dbhost = "localhost";
+ $dbname = "drkslide"; 
  $dbpasswd = "";
 
 // Si la clé n'est pas fournie => 403

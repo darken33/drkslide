@@ -5,9 +5,8 @@
  include("http_response_code.php");
  $dat = date("Y-m-d\TH:i:s") . ":000Z";
  $list = Array(
-		'name' => "lastUpdate",
-		'dateUpdate' => "2014-12-27T23:05:00.000Z", 
-		'dateVisit' => "$dat"
+		'status' => "OK", 
+		'date' => "$dat"
 		);
 
 /* on renvoie le resultat */
