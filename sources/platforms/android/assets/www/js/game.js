@@ -7,7 +7,7 @@
  * 
  * This software is under GNU General Public License
  */
-var game_version  = "1.7";
+var game_version  = "1.8";
 var navplay = false;
 var duree = 0;
 var score = 0;
@@ -73,6 +73,8 @@ var lvl = Math.floor((Math.random()*nb_level)+1);
 var ingame = false;
 var xfactor = 0;
 var yfactor = 0;
+var online = false;
+var thread_online = null;
 	
 (function($) {
 
@@ -98,6 +100,24 @@ var yfactor = 0;
 
 })(jQuery);
 		 
+function callServiceOnline() {
+	url = drkSlideUrl + "/services/service_online.php?v="+(new Date());
+	$.getJSON(url, function(data) {
+		online = (data.status == "OK");
+		if (gamesetsOnline.length == 0) callServiceGamesetList();
+	}).fail(function() {
+		online = false;
+	});
+}
+
+function isOnline() {
+	return online;
+}
+
+function isFirefoxOs() {
+	return (device.platform == "firefoxos");
+}
+
 /**
  * isCompleted() - vérifie que le tableau est fini
  */  			
@@ -169,8 +189,7 @@ function redraw() {
 			    y = (Math.floor((tab[i][j]-1) / nb_cols) * Math.floor(yfactor*difficult_rows/nb_rows));
 			    x = ((tab[i][j] -1) % nb_cols) * Math.floor(xfactor*difficult_cols/nb_cols);
 			    if (x > 0) x = 0;
-//				$('#'+id).html('<div id="drag'+tab[i][j]+'" class="sprite'+lvl+' sprite-size d'+difficulty+'" draggable="false" ondragstart="drag(event)" width="100%" height="100%" style="line-height:'+Math.abs(yfactor*difficult_rows/nb_rows)+'px; margin: 0; background-position: '+x+'px '+y+'px;">'+tab[i][j]+'</div>');							
-				document.getElementById(id).innerHTML = '<div id="drag'+tab[i][j]+'" class="sprite sprite'+lvl+' sprite-size d'+game_options.difficulty+'" draggable="false" ondragstart="drag(event)" width="100%" height="100%" style="line-height:'+Math.abs(yfactor*difficult_rows/nb_rows)+'px; margin: 0; background-position: '+x+'px '+y+'px;">'+tab[i][j]+'</div>';							
+				document.getElementById(id).innerHTML = '<div id="drag'+tab[i][j]+'" class="sprite sprite'+lvl+' sprite-size d'+game_options.difficulty+'" width="100%" height="100%" style="line-height:'+Math.abs(yfactor*difficult_rows/nb_rows)+'px; margin: 0; background-position: '+x+'px '+y+'px;">'+tab[i][j]+'</div>';							
 			}
 			else {
 				xo = i;
@@ -181,7 +200,6 @@ function redraw() {
 	// On autorise les dalles à bouger
 	$('.sprite').unbind("tap");
     id = xo+'.'+yo;
-//	$('#'+id).html('');							
 	document.getElementById(id).innerHTML = '';							
 	if (xo < nb_rows - 1) {
 		$('#drag'+tab[xo+1][yo]).bind("tap", function(event) {
@@ -287,8 +305,7 @@ function drawWin() {
 		    y = (Math.floor((tab[i][j]-1) / nb_cols) * Math.floor(yfactor*difficult_rows/nb_rows));
 		    x = ((tab[i][j] -1) % nb_cols) * Math.floor(xfactor*difficult_cols/nb_cols);
 			if (x > 0) x = 0;
-//			$('#'+id).html('<div id="drag'+tab[i][j]+'" class="sprite'+lvl+' sprite-size d'+difficulty+'" draggable="false" ondragstart="drag(event)" width="100%" height="100%" style="margin: 0; background-position: '+x+'px '+y+'px;">&nbsp;</div>');							
-			document.getElementById(id).innerHTML = '<div id="drag'+tab[i][j]+'" class="sprite'+lvl+' sprite-size d'+game_options.difficulty+'" draggable="false" ondragstart="drag(event)" width="100%" height="100%" style="margin: 0; background-position: '+x+'px '+y+'px;">&nbsp;</div>';							
+			document.getElementById(id).innerHTML = '<div id="drag'+tab[i][j]+'" class="sprite'+lvl+' sprite-size d'+game_options.difficulty+'" width="100%" height="100%" style="margin: 0; background-position: '+x+'px '+y+'px;">&nbsp;</div>';							
 		}
 	}
 }
@@ -361,10 +378,22 @@ function drawFirst() {
 		nb_rows = easy_rows;
 	}	
 	if (game_options.gameset != "default") {
+		// theme offline
 		mongs = getGameSet(game_options.gameset, gamesets);
 		if (mongs != null) {
 			$("#style").html(mongs.embeddedcss);
 		}
+		// theme on line
+		else if (isOnline()) {
+			mongs = getGameSet(game_options.gameset, gamesetsOnline);
+			if (mongs != null && mongs.embeddedcss != null) {
+				$("#style").html(mongs.embeddedcss.replace(/##/g, "'"));
+			}
+			else {
+				$("#style").html("");
+			}
+		}
+		// theme par defaut
 		else {
 			$("#style").html("");
 		}
@@ -381,7 +410,6 @@ function drawFirst() {
 		    y = (Math.floor((tab[i][j]-1) / nb_cols) * Math.floor(yfactor*difficult_rows/nb_rows));
 		    x = ((tab[i][j] -1) % nb_cols) * Math.floor(xfactor*difficult_cols/nb_cols);
 		    if (x > 0) x = 0;
-	//		$('#'+id).html('<div id="drag'+tab[i][j]+'" class="sprite'+lvl+' sprite-size d'+game_options.difficulty+'" draggable="false" ondragstart="drag(event)" width="100%" height="100%" style="margin: 0; background-position: '+x+'px '+y+'px;">&nbsp;</div>');							
 			document.getElementById(id).innerHTML = '<div id="drag'+tab[i][j]+'" class="sprite'+lvl+' sprite-size d'+game_options.difficulty+'" draggable="false" ondragstart="drag(event)" width="100%" height="100%" style="margin: 0; background-position: '+x+'px '+y+'px;">&nbsp;</div>';							
 		}
 	}
@@ -504,9 +532,8 @@ function quit() {
 
 function quitConfirm(btnIdx) {
 	if (btnIdx == 1) {
-		if (device.platform == "firefoxos") window.close();
-		else navigator.app.exitApp();
-		
+		if (isFirefoxOs()) window.close();
+		else navigator.app.exitApp();		
 	}
 }
 
@@ -540,9 +567,22 @@ function param() {
 	$('#l_game_player').html(texte_nom[game_options.lang]);
 	$('#game_player').val(game_options.playername);
 	var game_set = '<option id="default" value="default">'+texte_gameset_default[game_options.lang]+'</option>';
-	for (i=0; i < gamesets.length; i++) {
-		nm = gamesets[i].name;
-		game_set += '<option id="'+nm+'" value="'+nm+'">'+$.ucfirst(nm)+'</option>';
+	if (isOnline()) {
+		for (i=0; i < gamesetsOnline.length; i++) {
+			nm = gamesetsOnline[i].name;
+			if (getGameSet(nm, gamesets) != null) {
+				game_set += '<option id="'+nm+'" value="'+nm+'">'+$.ucfirst(nm)+'</option>';
+			}
+			else if (gamesetsOnline[i].embeddedcss != "") {
+				game_set += '<option id="'+nm+'" value="'+nm+'">'+$.ucfirst(nm)+' (online)</option>';
+			}
+		}
+	}
+	else {
+		for (i=0; i < gamesets.length; i++) {
+			nm = gamesets[i].name;
+			game_set += '<option id="'+nm+'" value="'+nm+'">'+$.ucfirst(nm)+'</option>';
+		}
 	}
 	$('#l_game_gameset').html(texte_gameset[game_options.lang]);
 	$("#game_gameset").html(game_set);
@@ -556,12 +596,11 @@ function param() {
 	if (game_options.helponstart) $('#game_help').attr('checked', true);
 	if (game_options.soundactive) $('#game_sound').attr('checked', true);
 	if (game_options.sharescore) $('#game_score').attr('checked', true);
-	//if (device.platform == "firefoxos") {
-	//	$('#game_sound').checkboxradio().checkboxradio("disable");
-	//}
 	$('#game_help').checkboxradio().checkboxradio("refresh");
 	$('#game_sound').checkboxradio().checkboxradio("refresh");
 	$('#game_score').checkboxradio().checkboxradio("refresh");
+	if (isFirefoxOs()) $('#gr_btn_gerer').hide();
+	else $('#gr_btn_gerer').show();
 	$.mobile.changePage('#param-1', 'none', true, true);
 }
 
@@ -604,6 +643,8 @@ function unbindGame() {
 	$("#param_back").off("tap");
 	$("#gs_back").off("tap");
 	$("#hlp_back").off("tap");
+	if (thread_online != null) clearInterval(thread_online);
+	thread_online = null;
 }
 
 /**
@@ -621,13 +662,6 @@ function bindGame() {
 		event.stopPropagation();
 		if ($('#game').css('display') == 'block') levelDown();
 	});	
-/*	
-	$("#game").on("taphold", function(event) {
-		event.preventDefault();
-		event.stopPropagation();
-		if (!ingame && popclosed) closeMenu();
-	});	
-*/ 
 	$("#menub").on("tap", function(event) {
 		event.preventDefault();
 		event.stopPropagation();
@@ -681,6 +715,7 @@ function bindGame() {
 	$("#param_back").on("tap", onBackButton);
 	$("#gs_back").on("tap", onBackButton);
 	$("#hlp_back").on("tap", onBackButton);
+	thread_online = setInterval(callServiceOnline, 15000);
 }
 
 /**
@@ -696,6 +731,7 @@ function bindMenu() {
 	$("#mparam").on("tap", function(event) {
 		event.preventDefault();
 		event.stopPropagation();
+		loading();
 		param();
 		closeMenu();
 	});
@@ -897,11 +933,12 @@ var onDeviceReady = function() {
 		}, true);
 		$('#msgnew').hide();
 		$('#loadnew').hide();
-		if (device.platform == "firefoxos") {
+		if (isFirefoxOs()) {
 			$('#gr_btn_gerer').hide();
 			gs2load=0;
 		}
 		initFileSystem();
+		callServiceOnline();
 		updateWidth();
 		loadSounds();
 		if (navplay) {
@@ -914,7 +951,7 @@ var onDeviceReady = function() {
 };
 
 function activateApp() {
-	if (!ready && ((isFsReady() && isGsReady()) || navplay)) {
+	if (!ready && ((isFsReady() && isGsReady() && isGSOnlineReady()) || navplay)) {
 		gamesetLastUpdate();
 		updateMenu();
 		refreshTitle(); 

@@ -89,7 +89,7 @@ function readOptions(_file) {
 						"sharescore" : (list[4] == "true" ? true : false), 
 						"gameset" : (list.length<6 || list[5] == null || list[5] == "" ? "default" : list[5]),  
 						"lang" : (list.length<7 || list[6] == null || list[6] == "" ? "fr" : list[6]),  
-						"visit" : (list.length<8 || list[7] == null || list[7] == "" ? "0000-00-00T00:00:00.000Z" : list[7]),  
+						"visit" : (list.length<8 || list[7] == null || list[7] == "" ? "0000-00-00T00:00:00.000Z" : list[7])
 						};
 		}
         ready_option = true;
@@ -235,7 +235,8 @@ function initOptions() {
 	// Initialisation des parametres
 	game_options = { "difficulty" : 1, "playername" : "Player 1", 
 		"helponstart" : true, "soundactive" : false, 
-		"sharescore" : true, "gameset" : "default", "lang" : "en", "visit" : "0000-00-00T00:00:00.000Z" };
+		"sharescore" : true, "gameset" : "default", "lang" : "en", "visit" : "0000-00-00T00:00:00.000Z" 
+	};
 	new_install = true;
 }
 

@@ -7,51 +7,54 @@
  * 
  * This software is under GNU General Public License
  */
-//var drkSlideUrl = "http://localhost:8080/drkslide";
 var drkSlideUrl = "http://darken33.free.fr/drkslide";
-var gamesetHosted = "";
+var gamesetHosted = null;
 var nbfiledw = 0;
 var dwprogress = 0;
 var thread_download = null;
 var thread_readgs = null;
 var lastVisit = null;
 var ungsname = "";
+var gso2load = 0;
+var gamesetsOnline = new Array();
 
 /**
- * Service de liste des gameset
- */  
-function gamesetListService() {
-	result = { 
-		"name": "service", 
-		"description": "Liste des games sets disponibles", 
-		"gameset": [ 
-			{ 
-				"name": "toulouse",
-				"description": "Gameset des monuments de Toulouse",
-				"levels": 10,
-				"price" : 0,
-				"licence": "Creative Commons By Sa",
-				"date" : "2014-02-05"
-			}, 
-			{ 
-				"name": "to-upgrade",
-				"description": "Gameset de test",
-				"levels": 10,
-				"price" : 0,
-				"licence": "Creative Commons By Sa",
-				"date" : "2014-02-07"
-			},
-			{ 
-				"name": "to-download",
-				"description": "Gameset de test",
-				"levels": 10,
-				"price" : 0,
-				"licence": "Creative Commons By Sa",
-				"date" : "2014-02-07"
+ * Liste des gamesets online
+ */
+function callServiceGamesetList() {
+	if (isOnline()) {
+		url = drkSlideUrl + "/services/gamesets_service.php?v="+(new Date());
+		$.getJSON(url, function(data) {
+			listGS_txt = data.gameset;
+			gamesetsOnline = parseGamesets(listGS_txt);
+			gso2load = gamesetsOnline.length;
+			for (i=0; i<gamesetsOnline.length; i++) {
+				callServiceGamesetCss(gamesetsOnline[i].name, i);
 			}
-		]
-	};
-	return result;
+		});
+	}
+}
+
+function callServiceGamesetCss(name, idx) {
+	if (isOnline()) {
+		url = drkSlideUrl + "/gameset/"+name+"/gameset.online.php?v="+(new Date());
+		$.getJSON(url, function(data) {
+			gamesetsOnline[idx].embeddedcss = data.embeddedcss;
+			gso2load--;
+			if (!ready) activateApp();
+		}).fail(function() {
+			gso2load--;
+			if (!ready) activateApp();
+		});
+	}
+	else {
+		gso2load--;
+		if (!ready) activateApp();
+	}	
+}
+
+function isGSOnlineReady() {
+	return (!isOnline() || (isOnline() && gso2load <= 0));
 }
 
 /**
@@ -96,6 +99,7 @@ function eventDlGs(evt) {
 	var gsn = evt.currentTarget.id.split("_");
 	deleteGameset(gsn[2]);
 }
+
 
 /**
  * Gestion des gamesets
@@ -541,6 +545,6 @@ function parseGameset(txt) {
 	tab = txt.split('#');
 	champs = tab[0].split(',');
 	files = tab[1].split(',');
-	_gs = { "name" : champs[0], "description" : champs[1], "levels" : champs[2], "price" : champs[3], "licence" : champs[4], "date" : champs[5], "files" : files}; 
+	_gs = { "name" : champs[0], "description" : champs[1], "levels" : champs[2], "price" : champs[3], "licence" : champs[4], "date" : champs[5], "files" : files, "embeddedcss" : ""}; 
 	return _gs;
 }

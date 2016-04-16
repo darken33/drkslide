@@ -1,4 +1,4 @@
-drkSlide v1.7
+drkSlide v1.8
 Le jeu du Taquin pour mobile
 ------------------------------------------------------------------------
 
@@ -63,6 +63,8 @@ vous béneficiez des quatre libertés fondamentales :
 
 Changelog
 ---------
+v1.8 :
+ - possibilité de jouer avec les thèmes online (nécessite d'être connecté)
 v1.7 :
  - support firefoxos
  - correctif sur l'annulation du téléchargement d'un thème
