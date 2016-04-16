@@ -7,7 +7,7 @@
  * 
  * This software is under GNU General Public License
  */
-var game_version  = "1.8";
+var game_version  = "1.9";
 var navplay = false;
 var duree = 0;
 var score = 0;
@@ -546,6 +546,11 @@ function aide() {
 	$.mobile.changePage('#aide-1', 'none', true, true);
 }
 
+function dons() {
+	$("#dons_content").html(texte_dons_content[game_options.lang]);
+	$.mobile.changePage('#dons', 'none', true, true);
+}
+
 function loading() {
 	$.mobile.changePage('#loading', 'none', true, true);
 }
@@ -557,6 +562,7 @@ function param() {
 	$('#txt_param').html(texte_param_title[game_options.lang]);
 	game_lang = '<option value="fr" '+(game_options.lang == "fr" ? 'selected="selected"' : '')+'>'+texte_option_langue_fr[game_options.lang]+'</option>';
 	game_lang += '<option value="en" '+(game_options.lang == "en" ? 'selected="selected"' : '')+'>'+texte_option_langue_en[game_options.lang]+'</option>';
+	game_lang += '<option value="es" '+(game_options.lang == "es" ? 'selected="selected"' : '')+'>'+texte_option_langue_es[game_options.lang]+'</option>';
 	$('#l_game_lang').html(texte_option_langage[game_options.lang]);
 	$('#game_lang').html(game_lang).selectmenu().selectmenu("refresh");
 	game_diff = '<option value="1" '+(game_options.difficulty == 1 ? 'selected="selected"' : '')+'>'+texte_difficulte_facile[game_options.lang]+'</option>';
@@ -624,6 +630,7 @@ function updateMenu() {
 	$('#m_txt_param').html(texte_menu_param[game_options.lang]);
 	$('#m_txt_aide').html(texte_menu_aide[game_options.lang]);
 	$('#m_txt_quitter').html(texte_menu_quitter[game_options.lang]);
+	$('#m_txt_dons').html(texte_menu_dons[game_options.lang]);
 	$('#main_text_subtitle').html(texte_sous_titre[game_options.lang]);
 }
 
@@ -643,6 +650,7 @@ function unbindGame() {
 	$("#param_back").off("tap");
 	$("#gs_back").off("tap");
 	$("#hlp_back").off("tap");
+	$("#dons_back").off("tap");
 	if (thread_online != null) clearInterval(thread_online);
 	thread_online = null;
 }
@@ -715,6 +723,7 @@ function bindGame() {
 	$("#param_back").on("tap", onBackButton);
 	$("#gs_back").on("tap", onBackButton);
 	$("#hlp_back").on("tap", onBackButton);
+	$("#dons_back").on("tap", onBackButton);
 	thread_online = setInterval(callServiceOnline, 15000);
 }
 
@@ -745,6 +754,12 @@ function bindMenu() {
 		event.preventDefault();
 		event.stopPropagation();
 		quit(); 
+	});
+	$("#mdons").on("tap", function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		dons(); 
+		closeMenu();
 	});
 }
 

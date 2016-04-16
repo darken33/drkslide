@@ -3,7 +3,7 @@
     "installs_allowed_from": [
         "*"
     ],
-    "version": "1.8",
+    "version": "1.9",
     "name": "drkSlide",
     "description": "A 15-Puzzle game for smartphone.",
     "developer": {

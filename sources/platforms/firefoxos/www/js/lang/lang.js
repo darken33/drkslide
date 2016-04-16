@@ -48,3 +48,7 @@ var texte_gameset_error = new Array();
 var texte_gameset_delete_error = new Array();
 var texte_gameset_create_error = new Array();
 var texte_gameset_message_new = new Array();
+var texte_dons_content = new Array();
+var texte_menu_dons = new Array();
+var texte_option_langue_es = new Array();
+
