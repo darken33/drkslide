@@ -1,0 +1,11 @@
+{
+    "name": "toulouse",
+    "description": "Gameset des monuments de Toulouse",
+    "levels": 10,
+    "price" : 0,
+    "licence": "Creative Commons By Sa",
+	"date" : "2014-02-25",
+    "files": "gameset.gs,gameset.css,bg001_mairie_salle_des_illustres_480.jpg,bg002_cite_de_l_espace_ariane_5_480.jpg,bg003_canal_de_brienne_480.jpg,bg004_fontaine_de_la_place_wilson_480.jpg,bg005_musee_les_augustins_480.jpg,bg006_basilique_saint_sernin_480.jpg,bg007_basilique_daurade_pont_saint_pierre_480.jpg,bg008_place_du_capitole_480.jpg,bg009_quai_de_tounis_480.jpg,bg010_museum_parc_histoire_naturelle_480.jpg",
+    "embeddedcss" : ".sprite1 { background-image:url('http://darken33.free.fr/drkslide/gameset/toulouse/bg001_mairie_salle_des_illustres_480.jpg'); background-repeat:no-repeat; } .sprite2 { background-image:url('http://darken33.free.fr/drkslide/gameset/toulouse/bg002_cite_de_l_espace_ariane_5_480.jpg'); background-repeat:no-repeat; } .sprite3 { background-image:url('http://darken33.free.fr/drkslide/gameset/toulouse/bg003_canal_de_brienne_480.jpg'); background-repeat:no-repeat; } .sprite4 { background-image:url('http://darken33.free.fr/drkslide/gameset/toulouse/bg004_fontaine_de_la_place_wilson_480.jpg'); background-repeat:no-repeat; } .sprite5 { background-image:url('http://darken33.free.fr/drkslide/gameset/toulouse/bg005_musee_les_augustins_480.jpg'); background-repeat:no-repeat; } .sprite6 { background-image:url('http://darken33.free.fr/drkslide/gameset/toulouse/bg006_basilique_saint_sernin_480.jpg'); background-repeat:no-repeat; } .sprite7 { background-image:url('http://darken33.free.fr/drkslide/gameset/toulouse/bg007_basilique_daurade_pont_saint_pierre_480.jpg'); background-repeat:no-repeat; } .sprite8 { background-image:url('http://darken33.free.fr/drkslide/gameset/toulouse/bg008_place_du_capitole_480.jpg'); background-repeat:no-repeat; } .sprite9 { background-image:url('http://darken33.free.fr/drkslide/gameset/toulouse/bg009_quai_de_tounis_480.jpg'); background-repeat:no-repeat; } .sprite10 { background-image:url('http://darken33.free.fr/drkslide/gameset/toulouse/bg010_museum_parc_histoire_naturelle_480.jpg'); background-repeat:no-repeat; }",
+    "source" : "http://commons.wikimedia.org/wiki/Toulouse"
+}
