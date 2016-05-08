@@ -50,6 +50,9 @@
         },
         "org.apache.cordova.network-information": {
             "PACKAGE_NAME": "fr.free.darken33.puzzle.drkslide"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "fr.free.darken33.puzzle.drkslide"
         }
     },
     "dependent_plugins": {}

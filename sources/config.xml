@@ -1,12 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="fr.free.darken33.puzzle.drkslide" version="1.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="fr.free.darken33.puzzle.drkslide" version="1.10" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>drkSlide</name>
     <description>
         A 15-Puzzle game for smartphone.
     </description>
-    <author email="darken33@free.fr" href="http://darken33.free.fr/?page_id=2">
+    <author email="darken33@free.fr" href="http://darken33.net/wp/index.php/2013/08/25/157/">
         Philippe Bousquet
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <engine name="android" spec="~5.1.1" />
+    <engine name="firefoxos" spec="~3.6.3" />
 </widget>

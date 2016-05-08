@@ -7,7 +7,7 @@
  * 
  * This software is under GNU General Public License
  */
-var game_version  = "1.9";
+var game_version  = "1.10";
 var navplay = false;
 var duree = 0;
 var score = 0;

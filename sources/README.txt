@@ -1,4 +1,4 @@
-drkSlide v1.9
+drkSlide v1.11
 Le jeu du Taquin pour mobile
 ------------------------------------------------------------------------
 
@@ -63,6 +63,9 @@ vous béneficiez des quatre libertés fondamentales :
 
 Changelog
 ---------
+v1.10 :
+ - Migration cordova suite à une alerte de securité
+ - Service REST migré vers http://darken33.net
 v1.9 :
  - Support langue Espagnole 
 v1.8 :

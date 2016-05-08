@@ -3,12 +3,12 @@
     "installs_allowed_from": [
         "*"
     ],
-    "version": "1.9",
+    "version": "1.10",
     "name": "drkSlide",
     "description": "A 15-Puzzle game for smartphone.",
     "developer": {
         "name": "Philippe Bousquet",
-        "url": "http://darken33.free.fr/"
+        "url": "http://darken33.net/wp/index.php/2013/08/25/157/"
     },
     "orientation": ["portrait"],
     "permissions": {
