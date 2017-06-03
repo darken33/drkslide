@@ -1,4 +1,4 @@
-drkSlide v1.11
+drkSlide v1.10.1
 Le jeu du Taquin pour mobile
 ------------------------------------------------------------------------
 
@@ -63,6 +63,8 @@ vous béneficiez des quatre libertés fondamentales :
 
 Changelog
 ---------
+v1.10.1 :
+ - Ajout d'un timer avant d'afficher le score (bug tablette maman)
 v1.10 :
  - Migration cordova suite à une alerte de securité
  - Service REST migré vers http://darken33.net

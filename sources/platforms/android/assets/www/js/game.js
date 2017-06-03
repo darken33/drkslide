@@ -7,7 +7,7 @@
  * 
  * This software is under GNU General Public License
  */
-var game_version  = "1.10";
+var game_version  = "1.10.1";
 var navplay = false;
 var duree = 0;
 var score = 0;
@@ -252,19 +252,22 @@ function change(i,j, xo, yo){
 		if (game_options.sharescore) {
 			service(nb_deplacement, duree, score);
 		}
-		if (game_options.soundactive) m_yeah.play();
-		if (navplay) {
-			alert(texte_welldone[game_options.lang]+nb_deplacement+texte_welldone_moves[game_options.lang]+duree+texte_welldone_score[game_options.lang]+score);
-			weldoDone();
-		}
-		else {
-			navigator.notification.alert(
-				texte_welldone[game_options.lang]+nb_deplacement+texte_welldone_moves[game_options.lang]+duree+texte_welldone_score[game_options.lang]+score,  // message
-				wellDone,         // callback
-				'Game Over',            // title
-				'Ok'                  // buttonName
-			);
-		}
+		// Bug sur tablette de maman
+		setTimeout(function () { 	
+			if (game_options.soundactive) m_yeah.play();
+			if (navplay) {
+				alert(texte_welldone[game_options.lang]+nb_deplacement+texte_welldone_moves[game_options.lang]+duree+texte_welldone_score[game_options.lang]+score);
+				weldoDone();
+			}
+			else {
+				navigator.notification.alert(
+					texte_welldone[game_options.lang]+nb_deplacement+texte_welldone_moves[game_options.lang]+duree+texte_welldone_score[game_options.lang]+score,  // message
+					wellDone,         // callback
+					'Game Over',            // title
+					'Ok'                  // buttonName
+				);
+			}
+		}, 2000);
 	}
 }			
 
